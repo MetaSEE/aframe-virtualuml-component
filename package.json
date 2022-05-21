@@ -5,8 +5,9 @@
   "author":"Filipe Arantes",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon ./bin/www",
-    "build": "webpack -w"
+    "start": "nodemon ./bin/www",
+    "build": "webpack --config webpack.config.js",
+    "dev": "npm run build && npm start"
   },
   "license": "MIT",
   "dependencies": {
