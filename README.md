@@ -7,7 +7,6 @@ A project with A-Frame + Express + Webpack
 
 ```http
   npm install
-  npm run build
 ```
 
 ## Execute
