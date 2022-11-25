@@ -2,7 +2,8 @@ AFRAME.registerComponent('associations', {
   schema: {
     type: {type:'string', default:'simple'},
     origin: {type:'string', default:''},
-    destination: {type:'string', default:''}
+    destination: {type:'string', default:''},
+    color: {type:'string', default:'black'}
   },
 
   init: function () {
@@ -20,15 +21,19 @@ AFRAME.registerComponent('associations', {
   update: function () {
     // Do something when component's data is updated.
 
-    if(this.data.origin && this.data.destination){
-      this.origin = document.querySelector(this.data.origin);
-      let originPosition = this.origin.getAttribute('position');
-      
-      this.destination = document.querySelector(this.data.destination);     
-      let destinationPosition = this.destination.getAttribute('position');
+    // setTimeout(()=>{
+      if(this.data.origin && this.data.destination){
+        this.origin = document.querySelector(this.data.origin);
+        let originPosition = this.origin.getAttribute('position');
+        
+        this.destination = document.querySelector(this.data.destination);     
+        let destinationPosition = this.destination.getAttribute('position');
+  
+        this.el.setAttribute('meshline','lineWidth: 20; color: '+this.data.color+'; path:'+this.vector3ToString(originPosition)+','+this.vector3ToString(destinationPosition));
+      }
+    // },.0001);
 
-      this.el.setAttribute('meshline','lineWidth: 20; color: black; path:'+this.vector3ToString(originPosition)+','+this.vector3ToString(destinationPosition));
-    }
+
   },
 
   remove: function () {

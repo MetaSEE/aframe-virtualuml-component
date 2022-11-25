@@ -1,7 +1,7 @@
 AFRAME.registerComponent('virtualumlclass', {
   schema: {
-    position: {type: 'string', default:null},
-    association: {type: 'string', default:null},
+    position: {type: 'string', default:''},
+    association: {type: 'array', default:[]},
     destination: {type: 'string', default:''}
   },
 
@@ -63,17 +63,17 @@ AFRAME.registerComponent('virtualumlclass', {
       //change meshline
       if(this.data.association){
 
-        let meshline = document.querySelector(this.data.association);
+        for(let i=0; i<this.data.association.length; i++){
+          let meshline = document.querySelector(this.data.association[i]);
 
-        //discovering if is origin or destination
-        if( meshline.getAttribute('associations').origin === '#'+this.el.getAttribute('id') ){
-
-          meshline.setAttribute('meshline','lineWidth: 20; color: black; path:'+this.vector3ToString(this.data.position)+', '+this.returnMeshlinePath(meshline,'destination'));
-
-        }else{
-          meshline.setAttribute('meshline','lineWidth: 20; color: black; path:'+this.returnMeshlinePath(meshline,'origin')+', '+this.vector3ToString(this.data.position));
-
-          console.log('destination');
+          //discovering if is origin or destination
+          if( meshline.getAttribute('associations').origin === '#'+this.el.getAttribute('id') ){
+  
+            meshline.setAttribute('meshline','lineWidth: 20; color: black; path:'+this.vector3ToString(this.data.position)+', '+this.returnMeshlinePath(meshline,'destination'));
+  
+          }else{
+            meshline.setAttribute('meshline','lineWidth: 20; color: black; path:'+this.returnMeshlinePath(meshline,'origin')+', '+this.vector3ToString(this.data.position));
+          }
         }
       }
 
