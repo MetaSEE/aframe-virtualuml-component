@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual UML - MetaSEE</title>
+
+  <!-- AFRAME -->
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+
+  <!-- THIRD PARTY AFRAME COMPONENTS -->
+  <script src="https://raw.githack.com/andreasplesch/aframe-meshline-component/master/dist/aframe-meshline-component.min.js"></script>
+
+  <!-- OWN AFRAME COMPONENTS -->
+  <script src="js/aframe-components/virtualumlclass.js"></script>
+  <script src="js/aframe-components/associations.js"></script>
+
+</head>
+<body>
+  <a-scene
+    inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
+  >
+
+    <a-entity camera look-controls wasd-controls="acceleration:600" position="0 1.6 10"></a-entity>
+    
+    <a-sky color="#ECECEC"></a-sky>
+
+    <a-box
+      virtualumlclass="association:#ass1"
+      id="class1"
+      color="green"
+      position="-2 0 0"
+      scale="1.2 1.5 .2"
+    ></a-box>
+
+    <a-box
+      virtualumlclass="association:#ass1"
+      id="class2"
+      color="green"
+      position="5 0 0"
+      scale="1.2 1.5 .2"
+    ></a-box>
+
+    <!-- only to create -->
+    <a-entity id="ass1" associations="origin:#class1; destination:#class2"></a-entity>
+
+    <!-- <a-entity
+      meshline="lineWidth: 20; path:0 0 0, 2 0 0; color: black"
+      association="origin:#class1; destination:#class2;"
+    ></a-entity> -->
+
+
+  </a-scene>  
+
+<!-- TESTES -->
+<script>
+  // setTimeout(()=>{
+  //   const element = document.querySelector("#class1");
+  //   element.setAttribute('virtualumlclass','#class2');
+  //   element.setAttribute('position','-5 2 4');
+  // },2000);
+</script>
+</body>
+</html>
