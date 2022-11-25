@@ -27,7 +27,7 @@
     <a-sky color="#ECECEC"></a-sky>
 
     <a-box
-      virtualumlclass="association:#ass1,#ass2"
+      virtualumlclass="associations:#ass1,ass2"
       id="class1"
       color="blue"
       position="-2 1 0"
@@ -35,25 +35,35 @@
     ></a-box>
 
     <a-box
-      virtualumlclass="association:#ass1,#ass3"
+      virtualumlclass="associations:#ass1"
       id="class2"
       color="green"
       position="5 -1 0"
       scale="1.2 1.5 .2"
     ></a-box>
 
-    <!-- <a-box
-      virtualumlclass="association:#ass2,#ass3"
+    <a-box
+      virtualumlclass="associations:#ass2"
       id="class3"
       color="red"
       position="-2 5 0"
       scale="1.2 1.5 .2"
-    ></a-box> -->
+    ></a-box>
+
+    <a-entity
+      id="ass1"
+      associations="origin:#class1; destination:#class2; positionorigin:; positiondestination:;"
+    ></a-entity>
+
+    <a-entity
+      id="ass2"
+      associations="origin:#class3; destination:#class1; positionorigin:; positiondestination:;"
+    ></a-entity>
+
 
     <!-- only to create -->
-    <a-entity id="ass1" associations="origin:#class1; destination:#class2"></a-entity>
-    <!-- <a-entity id="ass2" associations="origin:#class3; destination:#class1; color:red"></a-entity>
-    <a-entity id="ass3" associations="origin:#class3; destination:#class2; color:yellow"></a-entity> -->
+    <!-- <a-entity id="ass1" association="origin:#class1; destination:#class2"></a-entity> -->
+
 
 
     <!-- <a-entity
@@ -66,11 +76,8 @@
 
 <!-- TESTES -->
 <script>
-  // setTimeout(()=>{
-  //   const element = document.querySelector("#class1");
-  //   element.setAttribute('virtualumlclass','#class2');
-  //   element.setAttribute('position','-5 2 4');
-  // },2000);
+
+
 </script>
 </body>
 </html>
