@@ -11,6 +11,7 @@ AFRAME.registerPrimitive('a-umlclass',{
     id: 'a-umlclass-component.id',
     color: 'a-umlclass-component.color',
     association: 'a-umlclass-component.association',
+    classname: 'a-umlclass-component.classname',
   }
 });
 
@@ -20,7 +21,8 @@ AFRAME.registerComponent('a-umlclass-component', {
     color: {type: 'color', default: 'gray'},
     position: {type: 'vec3', default: {x:0, y:0, z:0}},
     scale: {type: 'vec3', default: {x:1.5, y:.8, z:.15}},
-    association: {type:'array', default:[]}
+    association: {type:'array', default:[]},
+    classname: {type: 'string', default: ''},
   },
 
   init: function () {
@@ -35,6 +37,8 @@ AFRAME.registerComponent('a-umlclass-component', {
 
   update: function () {
     // Do something when component's data is updated.
+
+    this.self.setClassName();
   },
 
   remove: function () {
@@ -58,10 +62,20 @@ AFRAME.registerComponent('a-umlclass-component', {
     this.el.appendChild(box);
   },
 
+  setClassName: function(){
+    const children = this.el.childNodes;
+
+    for(var i=0; i<children.length; i++){
+      if( children[i].tagName === 'A-TEXT' ){
+        children[i].setAttribute('value',this.data.classname);
+      }
+    }
+  },
+
   createClassName: function(){
     const classname = document.createElement('a-text');
 
-    classname.setAttribute('value',this.data.id+' Class');
+    classname.setAttribute('value',this.data.classname);
     classname.setAttribute('width',5);
     classname.setAttribute('color','black');
     classname.setAttribute('align','center');
