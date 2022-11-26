@@ -20,7 +20,7 @@ AFRAME.registerComponent('a-umlclass-component', {
     id: {type: 'string', default: ''},
     color: {type: 'color', default: 'gray'},
     position: {type: 'vec3', default: {x:0, y:0, z:0}},
-    scale: {type: 'vec3', default: {x:1.5, y:.8, z:.15}},
+    scale: {type: 'vec3', default: {x:1.5, y:.6, z:.15}},
     association: {type:'array', default:[]},
     classname: {type: 'string', default: ''},
   },
@@ -29,6 +29,8 @@ AFRAME.registerComponent('a-umlclass-component', {
     // Do something when component first attached.
 
     this.self = this;
+    this.class_name_element = null;
+    this.class_box_element = null;
 
     this.self.createBox();
     this.self.createClassName();
@@ -37,8 +39,8 @@ AFRAME.registerComponent('a-umlclass-component', {
 
   update: function () {
     // Do something when component's data is updated.
-
     this.self.setClassName();
+    this.self.changeClassWidthAccordingClassName();
   },
 
   remove: function () {
@@ -52,36 +54,44 @@ AFRAME.registerComponent('a-umlclass-component', {
   // MY FUNCTIONS
 
   createBox: function(){
-    const box = document.createElement('a-box');
+    this.class_box_element = document.createElement('a-box');
 
-    box.setAttribute('id',this.data.id+'_box');
-    box.setAttribute('color',this.data.color);
-    box.setAttribute('position',this.data.position);
-    box.setAttribute('scale',this.data.scale);
+    this.class_box_element.setAttribute('id',this.data.id+'_box');
+    this.class_box_element.setAttribute('color',this.data.color);
+    this.class_box_element.setAttribute('position',this.data.position);
+    this.class_box_element.setAttribute('scale',this.data.scale);
 
-    this.el.appendChild(box);
+    this.el.appendChild(this.class_box_element);
   },
 
   setClassName: function(){
-    const children = this.el.childNodes;
-
-    for(var i=0; i<children.length; i++){
-      if( children[i].tagName === 'A-TEXT' ){
-        children[i].setAttribute('value',this.data.classname);
-      }
-    }
+    this.class_name_element.setAttribute('value',this.data.classname);
   },
 
   createClassName: function(){
-    const classname = document.createElement('a-text');
+    this.class_name_element = document.createElement('a-text');
 
-    classname.setAttribute('value',this.data.classname);
-    classname.setAttribute('width',5);
-    classname.setAttribute('color','black');
-    classname.setAttribute('align','center');
-    classname.setAttribute('position',this.self.postionClassName());
+    this.class_name_element.setAttribute('value',this.data.classname);
+    this.class_name_element.setAttribute('width',5);
+    this.class_name_element.setAttribute('color','black');
+    this.class_name_element.setAttribute('align','center');
+    this.class_name_element.setAttribute('position',this.self.postionClassName());
 
-    this.el.appendChild(classname);
+    this.el.appendChild(this.class_name_element);
+  },
+
+  changeClassWidthAccordingClassName: function(){
+    var qtdletters = this.data.classname.length;
+
+    if(qtdletters > 9){
+      var scale = this.class_box_element.getAttribute('scale');
+      var new_x = qtdletters / 7;
+      var newscale = {x:new_x, y:this.data.scale.y, z:this.data.scale.z};
+      this.class_box_element.setAttribute('scale',this.self.vectorToString(newscale));
+    }else{
+      var newscale = {x:this.data.scale.x, y:this.data.scale.y, z:this.data.scale.z};
+      this.class_box_element.setAttribute('scale',this.self.vectorToString(newscale));
+    }
   },
 
   postionClassName: function(){
