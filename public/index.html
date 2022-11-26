@@ -31,23 +31,33 @@
       id="class_1"
       position="-2 1 0"
       color="orange"
+      association=""
     ></a-umlclass>
 
     <a-umlclass
       id="class_2"
       position="2 -1 0"
       color="orange"
+      association="#ass1,#ass2"
     ></a-umlclass>
 
     <a-umlclass
       id="class_3"
       position="3 2 -2"
       color="orange"
+      association="#ass2"
+    ></a-umlclass>
+
+    <a-umlclass
+      id="class_4"
+      position="-3 -2 -2"
+      color="orange"
+      association="#ass1"
     ></a-umlclass>
 
     <a-association
       id="ass1"
-      start="#class_1"
+      start="#class_4"
       end="#class_2"
     ></a-association>
 
@@ -56,63 +66,7 @@
       start="#class_2"
       end="#class_3"
     ></a-association>
-
-    <!-- <a-box
-      virtualumlclass="associations:#ass1,ass2"
-      id="class1"
-      color="blue"
-      position="-2 1 0"
-      scale="1.2 1.5 .2"
-    ></a-box>
-
-    <a-box
-      virtualumlclass="associations:#ass1"
-      id="class2"
-      color="green"
-      position="5 -1 0"
-      scale="1.2 1.5 .2"
-    ></a-box>
-
-    <a-box
-      virtualumlclass="associations:#ass2"
-      id="class3"
-      color="red"
-      position="-2 5 0"
-      scale="1.2 1.5 .2"
-    ></a-box>
-
-    <a-entity
-      id="ass1"
-      associations="origin:#class1; destination:#class2; positionorigin:; positiondestination:;"
-    ></a-entity>
-
-    <a-entity
-      id="ass2"
-      associations="origin:#class3; destination:#class1; positionorigin:; positiondestination:;"
-    ></a-entity>
     
-    <a-text width="10" value="hello" position="0 0 0" color="black"></a-text> -->
-
-
-
-
-    <!-- only to create -->
-    <!-- <a-entity id="ass1" association="origin:#class1; destination:#class2"></a-entity> -->
-
-
-
-    <!-- <a-entity
-      meshline="lineWidth: 20; path:0 0 0, 2 0 0; color: black"
-      association="origin:#class1; destination:#class2;"
-    ></a-entity> -->
-
-
   </a-scene>  
-
-<!-- TESTES -->
-<script>
-
-
-</script>
 </body>
 </html>
