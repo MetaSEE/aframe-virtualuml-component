@@ -137,6 +137,129 @@ AFRAME.registerComponent('a-umlclass-component', {
   }
 });
 
+/////////////////////////////////////
+// ATTRIBUTES
+/////////////////////////////////////
+
+AFRAME.registerPrimitive('a-attribute',{
+  defaultComponents: {'a-attribute-component':{}},
+  mappings: {},
+});
+
+AFRAME.registerComponent('a-attribute-component', {
+  schema: {},
+
+  init: function () {
+    // Do something when component first attached.
+    // console.log(this.self);
+    this.self = this;
+  },
+
+  update: function () {
+    // Do something when component's data is updated.
+    
+    this.self.createBox();
+  },
+
+  remove: function () {
+    // Do something the component or its entity is detached.
+  },
+
+  tick: function (time, timeDelta) {
+    // Do something on every scene tick or frame.
+  },
+
+  createBox: function(){
+
+    if(this.el.parentElement.hasLoaded){
+      routine();
+    }else{
+      this.el.parentElement.addEventListener('loaded', function(){
+        routine();
+      });
+    }
+
+    const routine = () => {
+      
+      const box = document.createElement('a-box');
+      const height = -(this.el.parentElement.object3D.position.y/2);
+  
+      box.setAttribute('id',box.object3D.id);
+      box.setAttribute('color','#fff');
+      box.setAttribute('position','0 '+height+' 0');
+      box.setAttribute('scale','1.5 0.2 .15');
+  
+      this.el.appendChild(box);
+    }
+  }
+});
+
+AFRAME.registerComponent('attributes', {
+  schema: {
+    value: {type:'array', default:[]},
+  },
+
+  init: function () {
+    // Do something when component first attached.
+    this.self = this;
+  },
+
+  update: function () {
+    // Do something when component's data is updated.
+
+    this.self.createAttribute();
+  },
+
+  remove: function () {
+    // Do something the component or its entity is detached.
+  },
+
+  tick: function (time, timeDelta) {
+    // Do something on every scene tick or frame.
+  },
+
+  createAttribute: function(){
+    // <a-text value="+ nome : String" width="3" color="black" align="center" position="0 0 .15"></a-text>
+
+    let stateCheck = setInterval(() => {
+      if (document.readyState === 'complete') {
+        clearInterval(stateCheck);
+
+        // do it something
+        if(this.el.hasLoaded){
+          routine();
+        }else{
+          this.el.addEventListener('loaded', function(){
+            routine();
+          });
+        }
+      }
+    }, 100);
+
+    const routine = () => {
+      if(this.data.value.length > 0){
+        const boxAttr = this.el.childNodes[0];
+  
+        for(var a=0; a < this.data.value.length; a++){
+          var text = document.createElement('a-text');
+    
+          text.setAttribute('value',this.data.value[a]);
+          text.setAttribute('width',2);
+          text.setAttribute('color','black');
+          text.setAttribute('align','center');
+          text.setAttribute('position','0 0 .5');
+          text.setAttribute('scale','1 6 1');
+  
+          boxAttr.appendChild(text);
+  
+          console.log(this.data.value[a])
+        }  
+      }
+    }
+  }
+});
+
+
 
 /////////////////////////////////////
 // ASSOCIACION
@@ -248,3 +371,5 @@ AFRAME.registerComponent('a-association-component', {
     }
   }
 });
+
+
