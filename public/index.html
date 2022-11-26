@@ -15,6 +15,7 @@
   <!-- OWN AFRAME COMPONENTS -->
   <script src="js/aframe-components/virtualumlclass.js"></script>
   <script src="js/aframe-components/associations.js"></script>
+  <script src="js/aframe-components/umlclass.js"></script>
 
 </head>
 <body>
@@ -22,11 +23,41 @@
     inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
   >
 
-    <a-entity camera look-controls wasd-controls="acceleration:600" position="0 1.6 10"></a-entity>
+    <a-entity camera look-controls wasd-controls="acceleration:700" position="0 1.6 5"></a-entity>
     
     <a-sky color="#ECECEC"></a-sky>
 
-    <a-box
+    <a-umlclass
+      id="class_1"
+      position="-2 1 0"
+      color="orange"
+    ></a-umlclass>
+
+    <a-umlclass
+      id="class_2"
+      position="2 -1 0"
+      color="orange"
+    ></a-umlclass>
+
+    <a-umlclass
+      id="class_3"
+      position="3 2 -2"
+      color="orange"
+    ></a-umlclass>
+
+    <a-association
+      id="ass1"
+      start="#class_1"
+      end="#class_2"
+    ></a-association>
+
+    <a-association
+      id="ass2"
+      start="#class_2"
+      end="#class_3"
+    ></a-association>
+
+    <!-- <a-box
       virtualumlclass="associations:#ass1,ass2"
       id="class1"
       color="blue"
@@ -59,6 +90,10 @@
       id="ass2"
       associations="origin:#class3; destination:#class1; positionorigin:; positiondestination:;"
     ></a-entity>
+    
+    <a-text width="10" value="hello" position="0 0 0" color="black"></a-text> -->
+
+
 
 
     <!-- only to create -->
