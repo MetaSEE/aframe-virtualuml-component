@@ -27,7 +27,7 @@
     inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
   >
 
-    <a-entity camera look-controls wasd-controls="acceleration:700" position="0 0 2"></a-entity>
+    <a-entity camera look-controls wasd-controls="acceleration:700" position="-2 -2 2"></a-entity>
     
     <a-sky color="#ECECEC"></a-sky>
 
@@ -38,10 +38,6 @@
       association=""
       classname="Class A"
     >
-      <a-attribute
-        id="attr1"
-        attributes="value:+ nome:String"
-      ></a-attribute>
   </a-umlclass>
 
     <a-umlclass
@@ -79,37 +75,26 @@
       start="#class_2"
       end="#class_3"
     ></a-association>
-
-    <!-- ATTRIBUTES -->
-    <!-- orange is FFA500 -->
-    <!-- <a-box id="testbox" color="#fff" position="0 0 0" scale="1.5 0.2 .15">
-      <a-text value="+ nome : String" width="3" color="black" align="center" position="0 0 .5"></a-text>
-      <a-text value="+ login : String" width="3" color="black" align="center" position="0 -.2 .15"></a-text>
-      <a-text value="+ senha : String" width="3" color="black" align="center" position="0 -.4 .15"></a-text>
-      <a-text value="+ matrícula : String" width="3" color="black" align="center" position="0 -.6 .15"></a-text>
-      <a-text value="+ oi : String" width="3" color="black" align="center" position="0 -.8 .15"></a-text>
-      <a-text value="+ oioioi : String" width="3" color="black" align="center" position="0 -1 .15"></a-text>
-    </a-box> -->
     
   </a-scene> 
   
   <script>
     // CHANGE ATTRTIBUTE BOX HEIGHT ACCORDING AMOUNT ATT TEXTS
-    function changeHeightAttrBox(testbox, height_for_one_word, words){
-      // var words = 6;
-      // var height_for_one_word = 0.2;
-      var height = height_for_one_word * words;
-      var posy = - ( (height*words) / ((words*2)+(height_for_one_word*10)));
-      // var posy = - ( (height*words) / 10);
+    // function changeHeightAttrBox(testbox, height_for_one_word, words){
+    //   // var words = 6;
+    //   // var height_for_one_word = 0.2;
+    //   var height = height_for_one_word * words;
+    //   var posy = - ( (height*words) / ((words*2)+(height_for_one_word*10)));
+    //   // var posy = - ( (height*words) / 10);
 
-      testbox.object3D.position.y = posy;
-      testbox.object3D.scale.y = height;
+    //   testbox.object3D.position.y = posy;
+    //   testbox.object3D.scale.y = height;
 
-      console.log(posy);
-    }
+    //   console.log(posy);
+    // }
 
-    var testbox = document.querySelector('#testbox');
-    changeHeightAttrBox(testbox, .2, 6);
+    // var testbox = document.querySelector('#testbox');
+    // changeHeightAttrBox(testbox, .2, 6);
 
 
 

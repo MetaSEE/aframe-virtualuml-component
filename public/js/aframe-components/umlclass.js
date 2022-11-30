@@ -241,13 +241,14 @@ AFRAME.registerComponent('attributes', {
         const boxAttr = this.el.childNodes[0];
   
         for(var a=0; a < this.data.value.length; a++){
+          var pos_y = -(a * .6); 
           var text = document.createElement('a-text');
     
           text.setAttribute('value',this.data.value[a]);
           text.setAttribute('width',2);
           text.setAttribute('color','black');
           text.setAttribute('align','center');
-          text.setAttribute('position','0 0 .5');
+          text.setAttribute('position','0 '+pos_y+' .5');
           text.setAttribute('scale','1 6 1');
   
           boxAttr.appendChild(text);
@@ -258,8 +259,6 @@ AFRAME.registerComponent('attributes', {
     }
   }
 });
-
-
 
 /////////////////////////////////////
 // ASSOCIACION
