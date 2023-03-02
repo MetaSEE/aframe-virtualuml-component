@@ -2,6 +2,8 @@
 // UML CLASS
 /////////////////////////////////////
 
+const UMLCLASS_SCALE_Y = .7;
+
 AFRAME.registerPrimitive('a-umlclass',{
   defaultComponents: {
     'a-umlclass-component': {},
@@ -18,9 +20,9 @@ AFRAME.registerPrimitive('a-umlclass',{
 AFRAME.registerComponent('a-umlclass-component', {
   schema: {
     id: {type: 'string', default: ''},
-    color: {type: 'color', default: 'gray'},
+    color: {type: 'color', default: 'orange'},
     position: {type: 'vec3', default: {x:0, y:0, z:0}},
-    scale: {type: 'vec3', default: {x:1.5, y:.6, z:.15}},
+    scale: {type: 'vec3', default: {x:1.5, y:UMLCLASS_SCALE_Y, z:.15}},
     association: {type:'array', default:[]},
     classname: {type: 'string', default: ''},
   },
@@ -143,11 +145,15 @@ AFRAME.registerComponent('a-umlclass-component', {
 
 AFRAME.registerPrimitive('a-attribute',{
   defaultComponents: {'a-attribute-component':{}},
-  mappings: {},
+  mappings: {
+    umlclass: 'a-attribute-component.umlclass'
+  },
 });
 
 AFRAME.registerComponent('a-attribute-component', {
-  schema: {},
+  schema: {
+    umlclass: {type: 'string', default: ''}
+  },
 
   init: function () {
     // Do something when component first attached.
@@ -171,56 +177,6 @@ AFRAME.registerComponent('a-attribute-component', {
 
   createBox: function(){
 
-    if(this.el.parentElement.hasLoaded){
-      routine();
-    }else{
-      this.el.parentElement.addEventListener('loaded', function(){
-        routine();
-      });
-    }
-
-    const routine = () => {
-      
-      const box = document.createElement('a-box');
-      const height = -(this.el.parentElement.object3D.position.y/2);
-  
-      box.setAttribute('id',box.object3D.id);
-      box.setAttribute('color','#fff');
-      box.setAttribute('position','0 '+height+' 0');
-      box.setAttribute('scale','1.5 0.2 .15');
-  
-      this.el.appendChild(box);
-    }
-  }
-});
-
-AFRAME.registerComponent('attributes', {
-  schema: {
-    value: {type:'array', default:[]},
-  },
-
-  init: function () {
-    // Do something when component first attached.
-    this.self = this;
-  },
-
-  update: function () {
-    // Do something when component's data is updated.
-
-    this.self.createAttribute();
-  },
-
-  remove: function () {
-    // Do something the component or its entity is detached.
-  },
-
-  tick: function (time, timeDelta) {
-    // Do something on every scene tick or frame.
-  },
-
-  createAttribute: function(){
-    // <a-text value="+ nome : String" width="3" color="black" align="center" position="0 0 .15"></a-text>
-
     let stateCheck = setInterval(() => {
       if (document.readyState === 'complete') {
         clearInterval(stateCheck);
@@ -236,29 +192,90 @@ AFRAME.registerComponent('attributes', {
       }
     }, 100);
 
+
     const routine = () => {
-      if(this.data.value.length > 0){
-        const boxAttr = this.el.childNodes[0];
-  
-        for(var a=0; a < this.data.value.length; a++){
-          var pos_y = -(a * .6); 
-          var text = document.createElement('a-text');
-    
-          text.setAttribute('value',this.data.value[a]);
-          text.setAttribute('width',2);
-          text.setAttribute('color','black');
-          text.setAttribute('align','center');
-          text.setAttribute('position','0 '+pos_y+' .5');
-          text.setAttribute('scale','1 6 1');
-  
-          boxAttr.appendChild(text);
-  
-          console.log(this.data.value[a])
-        }  
-      }
+      
+      const umlclassposition = document.querySelector(this.data.umlclass).getAttribute('position');
+      let pos_y = umlclassposition.y - (UMLCLASS_SCALE_Y * 2); // UMLCLASS_SCALE_Y is scale.y of the umlclass box
+
+      const box = document.createElement('a-box');
+      
+      box.setAttribute('id',box.object3D.id);
+      box.setAttribute('color','#fff');
+      box.setAttribute('scale','1.5 2 .15');
+      box.setAttribute('position', umlclassposition.x+' '+pos_y+' '+umlclassposition.z);   // position.y = (scale.y / 2) + .4
+      this.el.appendChild(box);
+
+      // console.log(this.el.object3D.position);
     }
   }
 });
+
+// AFRAME.registerComponent('attributes', {
+//   schema: {
+//     value: {type:'array', default:[]},
+//   },
+
+//   init: function () {
+//     // Do something when component first attached.
+//     this.self = this;
+//   },
+
+//   update: function () {
+//     // Do something when component's data is updated.
+
+//     this.self.createAttribute();
+//   },
+
+//   remove: function () {
+//     // Do something the component or its entity is detached.
+//   },
+
+//   tick: function (time, timeDelta) {
+//     // Do something on every scene tick or frame.
+//   },
+
+//   createAttribute: function(){
+//     // <a-text value="+ nome : String" width="3" color="black" align="center" position="0 0 .15"></a-text>
+
+//     let stateCheck = setInterval(() => {
+//       if (document.readyState === 'complete') {
+//         clearInterval(stateCheck);
+
+//         // do it something
+//         if(this.el.hasLoaded){
+//           routine();
+//         }else{
+//           this.el.addEventListener('loaded', function(){
+//             routine();
+//           });
+//         }
+//       }
+//     }, 100);
+
+//     const routine = () => {
+//       if(this.data.value.length > 0){
+//         const boxAttr = this.el.childNodes[0];
+  
+//         for(var a=0; a < this.data.value.length; a++){
+//           var pos_y = -(a * .6); 
+//           var text = document.createElement('a-text');
+    
+//           text.setAttribute('value',this.data.value[a]);
+//           text.setAttribute('width',2);
+//           text.setAttribute('color','black');
+//           text.setAttribute('align','center');
+//           text.setAttribute('position','0 '+pos_y+' .5');
+//           text.setAttribute('scale','1 6 1');
+  
+//           boxAttr.appendChild(text);
+  
+//           console.log(this.data.value[a])
+//         }  
+//       }
+//     }
+//   }
+// });
 
 /////////////////////////////////////
 // ASSOCIACION

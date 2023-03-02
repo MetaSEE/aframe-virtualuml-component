@@ -18,8 +18,15 @@
   <!-- THIRD PARTY AFRAME COMPONENTS -->
   <script src="https://raw.githack.com/andreasplesch/aframe-meshline-component/master/dist/aframe-meshline-component.min.js"></script>
 
+  <!-- aframe-gui -->
+  <script src="https://rawgit.com/rdub80/aframe-gui/master/dist/aframe-gui.min.js"></script>
+
+
   <!-- OWN AFRAME COMPONENTS -->
   <script src="js/aframe-components/umlclass.js"></script>
+
+  <!-- ACESSAR ESSE SITE -->
+  <!-- https://glitch.com/edit/#!/lush-grandiose-border?path=README.md%3A1%3A0 <<<<<<<<<<<<<<<<< -->
 
 </head>
 <body>
@@ -27,42 +34,60 @@
     inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js"
   >
 
-    <a-entity camera look-controls wasd-controls="acceleration:700" position="-2 -2 2"></a-entity>
+    <a-entity camera look-controls wasd-controls="acceleration:700" position="-2 0 5">
+
+      <a-gui-cursor id="cursor"
+						  raycaster="objects: [gui-interactable]"
+						  fuse="false"
+				>
+				</a-gui-cursor> <!-- /cursor -->
+        
+    </a-entity>
     
     <a-sky color="#ECECEC"></a-sky>
 
     <a-umlclass
       id="class_1"
-      position="-2 1 0"
-      color="orange"
-      association=""
-      classname="Class A"
+      position="-4 3 0"
+      association="#ass3"
+      classname="Class One"
     >
-  </a-umlclass>
+    </a-umlclass>
+
+    <a-attribute
+      umlclass="#class_1"
+    ></a-attribute>
 
     <a-umlclass
       id="class_2"
-      position="2 -1 0"
-      color="orange"
-      association="#ass1,#ass2"
-      classname="Class B"
-    ></a-umlclass>
+      position="0 2 0"
+      association="#ass1,#ass2,#ass3"
+      classname="Class Two"
+    >
+    </a-umlclass>
+
+    <a-attribute
+      umlclass="#class_2"
+    ></a-attribute>
 
     <a-umlclass
       id="class_3"
       position="3 2 -2"
-      color="orange"
       association="#ass2"
-      classname="Class C"
+      classname="Class Three"
     ></a-umlclass>
 
     <a-umlclass
       id="class_4"
-      position="-3 -2 -2"
-      color="orange"
+      position="-3 0 -2"
       association="#ass1"
-      classname="Class D"
-    ></a-umlclass>
+      classname="Class Four"
+    >
+    </a-umlclass>
+
+    <a-attribute
+      umlclass="#class_4"
+    ></a-attribute>
 
     <a-association
       id="ass1"
@@ -74,6 +99,12 @@
       id="ass2"
       start="#class_2"
       end="#class_3"
+    ></a-association>
+
+    <a-association
+      id="ass3"
+      start="#class_2"
+      end="#class_1"
     ></a-association>
     
   </a-scene> 
