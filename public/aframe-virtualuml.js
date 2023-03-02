@@ -34,6 +34,8 @@ AFRAME.registerComponent('a-umlclass-component', {
     this.class_name_element = null;
     this.class_box_element = null;
 
+    this.originalscale = null;    // storage scale data
+
     this.self.createBox();
     this.self.createClassName();
     this.self.listenerElement();  // do something when change position
@@ -211,72 +213,6 @@ AFRAME.registerComponent('a-attribute-component', {
   }
 });
 
-// AFRAME.registerComponent('attributes', {
-//   schema: {
-//     value: {type:'array', default:[]},
-//   },
-
-//   init: function () {
-//     // Do something when component first attached.
-//     this.self = this;
-//   },
-
-//   update: function () {
-//     // Do something when component's data is updated.
-
-//     this.self.createAttribute();
-//   },
-
-//   remove: function () {
-//     // Do something the component or its entity is detached.
-//   },
-
-//   tick: function (time, timeDelta) {
-//     // Do something on every scene tick or frame.
-//   },
-
-//   createAttribute: function(){
-//     // <a-text value="+ nome : String" width="3" color="black" align="center" position="0 0 .15"></a-text>
-
-//     let stateCheck = setInterval(() => {
-//       if (document.readyState === 'complete') {
-//         clearInterval(stateCheck);
-
-//         // do it something
-//         if(this.el.hasLoaded){
-//           routine();
-//         }else{
-//           this.el.addEventListener('loaded', function(){
-//             routine();
-//           });
-//         }
-//       }
-//     }, 100);
-
-//     const routine = () => {
-//       if(this.data.value.length > 0){
-//         const boxAttr = this.el.childNodes[0];
-  
-//         for(var a=0; a < this.data.value.length; a++){
-//           var pos_y = -(a * .6); 
-//           var text = document.createElement('a-text');
-    
-//           text.setAttribute('value',this.data.value[a]);
-//           text.setAttribute('width',2);
-//           text.setAttribute('color','black');
-//           text.setAttribute('align','center');
-//           text.setAttribute('position','0 '+pos_y+' .5');
-//           text.setAttribute('scale','1 6 1');
-  
-//           boxAttr.appendChild(text);
-  
-//           console.log(this.data.value[a])
-//         }  
-//       }
-//     }
-//   }
-// });
-
 /////////////////////////////////////
 // ASSOCIACION
 /////////////////////////////////////
@@ -288,8 +224,8 @@ AFRAME.registerPrimitive('a-association',{
 
   mappings: {
     id: 'a-association-component.id',
-    start: 'a-association-component.start',
-    end: 'a-association-component.end',
+    start: 'a-association-component.start', //class start
+    end: 'a-association-component.end',    //class end
     start_pos: 'a-association-component.start_pos',
     end_pos: 'a-association-component.end_pos',
   },
@@ -299,7 +235,7 @@ AFRAME.registerComponent('a-association-component', {
   schema: {
     id: {type: 'string', default: ''},
     color: {type: 'color', default: 'black'},
-    lineWidth: {type: 'number', default: 8},
+    lineWidth: {type: 'number', default: .05},
     start: {type: 'selector', default:null},
     end: {type: 'selector', default:null},
     start_pos: {type:'vec3', default: undefined},
@@ -319,11 +255,8 @@ AFRAME.registerComponent('a-association-component', {
 
   update: function (oldData) {
     // Do something when component's data is updated.
-    this.olddata.push(oldData);
-
-    if(this.olddata.length > 3){
-      this.self.updateLine();
-    }
+    
+    this.self.updateLine();
   },
 
   remove: function () {
@@ -344,7 +277,7 @@ AFRAME.registerComponent('a-association-component', {
     }
 
     if(this.data.start && this.data.end){
-      this.el.setAttribute('meshline',this.self.createMeshlineAttributes(this.data.lineWidth, this.data.color, this.self.formatPathLine()));
+      this.el.setAttribute('meshline', this.self.createMeshlineAttributes(this.data.lineWidth, this.data.color, this.self.formatPathLine()));
     }
     
   },
@@ -356,6 +289,7 @@ AFRAME.registerComponent('a-association-component', {
     this.el.setAttribute('end_pos',this.self.formatPositions(this.data.end));
     this.el.setAttribute('meshline',this.self.createMeshlineAttributes(this.data.lineWidth, this.data.color, this.self.formatPathLine()));
   },
+
 
   createMeshlineAttributes: function(lineWidth=this.data.lineWidth, color=this.data.color, path){
     return 'lineWidth:'+lineWidth+'; color:'+color+'; path:'+path+';';
