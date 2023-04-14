@@ -1,7 +1,7 @@
 # aframe-virtualuml-component
 Make UML class diagrams to the Metaverse.
 
-![](https://raw.githubusercontent.com/MetaSEE/aframe-virtualuml-component/master/example-virtualuml.png?token=GHSAT0AAAAAACBFEIEISSWCAVACKDNTWKLWZBY3PYQ | width=500)
+![](https://raw.githubusercontent.com/MetaSEE/aframe-virtualuml-component/master/example-virtualuml.png?token=GHSAT0AAAAAACBFEIEISSWCAVACKDNTWKLWZBY3PYQ)
 
 Make sure you are using **A-Frame 1.4.0** or later and **lib/THREE.MeshLine.js**. Then just include virtualuml.min.js in your HTML:
 ```html
