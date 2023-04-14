@@ -2,7 +2,7 @@
 Make UML class diagrams to the Metaverse.
 
 Make sure you are using **A-Frame 1.4.0** or later and **lib/THREE.MeshLine.js**. Then just include virtualuml.min.js in your HTML:
-````html
+```html
 <script src="dist/virtualuml.min.js">
 ```
 and add the **a-umlclass** and **a-association** components to create your UML class diagram:
