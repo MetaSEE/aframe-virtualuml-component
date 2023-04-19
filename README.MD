@@ -23,6 +23,8 @@ and add the **a-umlclass** and **a-association** components to create your UML c
 <body>
   <a-scene background="color: #FAFAFA">
     <a-camera position="0 .5 5"></a-camera>
+
+    <!-- First, we created 3 UML classes: #firstclass, #secondclass, and #thirdclass  -->
     <a-umlclass
       id="firstclass"
       classname="First Class"
@@ -41,11 +43,14 @@ and add the **a-umlclass** and **a-association** components to create your UML c
       position="2 0 0"
     ></a-umlclass>
 
+    <!-- Now, we created the associations between UML classes -->
+    <!-- This association connect #firstclass and #secondclass -->
     <a-association
       start="#firstclass"
       end="#secondclass"
     ></a-association>
 
+    <!-- This association connect #firstclass and #thirdclass -->
     <a-association
       start="#firstclass"
       end="#thirdclass"
